@@ -27,6 +27,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private TextView logView;
+    private TextView statistic ;
+    private int []Statisc = {0,0,0,0} ;
     private GoogleMap map;
     private double lat ;
     private double lng ;
@@ -35,13 +37,14 @@ public class MainActivity extends AppCompatActivity {
     private Button ZoomIn ;
     private Button ZoomOut ;
     private Button Add ;
-    private Button list ;
+    private Button List ;
     private SQLiteDatabase db;
     private String dbName = "idList.db"; // name of Database;
     private String tableName = "idListTable"; // name of Table;
     private int dbMode = Context.MODE_PRIVATE;
     private int CamerSize = 15 ;
     private ArrayList<MarkerList> mylist = new ArrayList() ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 for(int x=0 ; x< mylist.size() ; x++) {
                     mylist.get(x).getMarker(map).showInfoWindow(); ;
                 }
+                Statistis_01(mylist) ;
             }
             public void onStatusChanged(String provider, int status, Bundle extras) { logView.setText("onStatusChanged");  }
             public void onProviderEnabled(String provider) {
@@ -79,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         ZoomIn = (Button)findViewById(R.id.Zoomin) ;
         ZoomOut = (Button)findViewById(R.id.Zoomout) ;
         Add = (Button)findViewById(R.id.add) ;
-        list = (Button)findViewById(R.id.list) ;
+        List = (Button)findViewById(R.id.LIST);
         // 맵을 확대하는 기능이다.
         ZoomIn.setOnClickListener(new Button.OnClickListener() { //줌인
             public void onClick(View v) {
@@ -101,14 +105,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             }
         });
-        list.setOnClickListener(new Button.OnClickListener() { //추가 액티비티로 이동.
+
+        List.setOnClickListener(new Button.OnClickListener() { //추가 액티비티로 이동.
             public void onClick(View v) {
-                try {
-                    Intent intent = new Intent(MainActivity.this, ListView.class);
-                    intent.putExtra("ANSWER", mylist);
-                    startActivity(intent);
-                }
-                catch(Exception e) {}
+                mylist.clear() ;
+                selectAll();
+                Intent intent_02 = new Intent(MainActivity.this, PassedList.class);
+                intent_02.putExtra("MYLIST", mylist) ;
+                intent_02.putExtra("CAMERSIZE", CamerSize) ;
+                startActivity(intent_02);
             }
         });
 
@@ -151,6 +156,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void Statistis_01(ArrayList<MarkerList> mylist){
+        statistic = (TextView) findViewById(R.id.statistic) ;
+        Statisc[0] = Statisc[1] = Statisc[2] = Statisc[3] = 0 ;
+        for(int x=0 ; x<mylist.size() ; x++) {
+            Statisc[Integer.parseInt(mylist.get(x).getCategory()) - 1]++ ;
+        }
+        statistic.setText("");
+        statistic.append("식사 : " + Statisc[0] + "   데이트 : " + Statisc[1] + "   놀러감 : " + Statisc[2] + "   용무 : " + Statisc[3]) ;// 식사 , 데이트 , 놀러감, 용무
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) { // 인텐트로 받는다.
         super.onActivityResult(requestCode, resultCode, data);
@@ -165,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
             temp.SetCategory(cate);
             Toast.makeText(MainActivity.this.getApplicationContext(), "잠시만 기다려 주세요.", Toast.LENGTH_LONG).show() ;
             insertData(temp);
+            mylist.clear() ;
             selectAll();
         }
         catch (Exception e) {}

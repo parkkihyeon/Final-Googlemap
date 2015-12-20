@@ -34,8 +34,10 @@
         <activity
             android:name=".AddList">
         </activity>
+        <activity
+            android:name=".PassedList">
+        </activity>
 
-        <activity android:name=".ListView"></activity>
     </application>
 
 </manifest>

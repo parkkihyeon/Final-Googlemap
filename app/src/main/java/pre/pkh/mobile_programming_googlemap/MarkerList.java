@@ -5,7 +5,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MarkerList {
+import java.io.Serializable;
+
+public class MarkerList implements Serializable {
     private double lat, lng;
     private int id ;
     private Marker marker ;

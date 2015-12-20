@@ -10,10 +10,19 @@
         android:layout_alignBottom="@+id/map"
         android:id="@+id/log"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="통계 : "
+        android:textSize="15dp"
+        android:id="@+id/statistic"
+        android:layout_alignParentBottom="true" />
+
     <fragment
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
         class="com.google.android.gms.maps.MapFragment" />
 
     <Button
@@ -22,7 +31,6 @@
         android:text="추가"
         android:textSize="20dp"
         android:id="@+id/add"
-        android:layout_below="@+id/list"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -31,8 +39,8 @@
         android:layout_height="wrap_content"
         android:text="List"
         android:textSize="20dp"
-        android:id="@+id/list"
-        android:layout_alignParentTop="true"
+        android:id="@+id/LIST"
+        android:layout_below="@+id/add"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
