@@ -44,7 +44,7 @@ public class PassedList extends Activity {
         // ListView에 아이템 추가
         for(int x=0 ; x<marker.size() ; x++) {
             m_Adapter.add(marker.get(x).getTitle());
-            m_Adapter.add(marker.get(x).getWhen());
+            m_Adapter.add(marker.get(x).getWhen() + " " + marker.get(x).getWhere());
         }
         m_Adapter.add("식사 : " + meal + "  데이트 : " + date + "  피크닉 : " + picnic + "  용무 : " + work);
     }
