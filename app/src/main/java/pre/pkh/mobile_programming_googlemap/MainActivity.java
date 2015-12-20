@@ -28,15 +28,17 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView logView;
     private GoogleMap map;
-    private double lat, lng;
-    private double Nowlat, Nowlng ;
+    private double lat ;
+    private double lng ;
+    private double Nowlat ;
+    private double Nowlng ;
     private Button ZoomIn ;
     private Button ZoomOut ;
     private Button Add ;
     private Button list ;
     private SQLiteDatabase db;
     private String dbName = "idList.db"; // name of Database;
-    public String tableName = "idListTable"; // name of Table;
+    private String tableName = "idListTable"; // name of Table;
     private int dbMode = Context.MODE_PRIVATE;
     private int CamerSize = 15 ;
     private ArrayList<MarkerList> mylist = new ArrayList() ;
